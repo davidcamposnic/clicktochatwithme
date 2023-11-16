@@ -1,12 +1,31 @@
 import { useState } from "react";
+import { Dashboard } from "./api";
+
+const dashboardCollection = new Dashboard();
 
 const App = () => {
-  const [counter, setCounter] = useState(0);
+  const { create } = dashboardCollection;
+
+  const [name, setName] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await create(name);
+  };
+
   return (
     <div>
-      <h1>React</h1>
-      <button onClick={() => setCounter(counter + 1)}>Click to me</button>
-      <p>The counter is: {counter}</p>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={name}
+          onChange={(newValue) => setName(newValue.target.value)}
+        />
+        <input type="submit" value="Enviar" />
+      </form>
     </div>
   );
 };

@@ -13,6 +13,7 @@
   "author": "David Campos",
   "license": "GPL v2 or later",
   "dependencies": {
-    "@wordpress/scripts": "^26.16.0"
+    "@wordpress/scripts": "^26.16.0",
+    "axios": "^1.6.2"
   }
 }

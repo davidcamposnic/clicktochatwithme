@@ -20,6 +20,8 @@ if (!defined('ABSPATH')) die();
 define('DCNIC_CLICKTOCHAT_PLUGIN_DIR_URL', plugin_dir_url(__FILE__));
 define('DCNIC_CLICKTOCHAT_DIRNAME', dirname(__FILE__));
 
+require_once plugin_dir_path(__FILE__) . 'api/dashboard.php';
+
 class ClickToChat {
 	function __construct($name) {
 		$this->name = $name;
@@ -77,6 +79,13 @@ class ClickToChat {
 			$assetsFile['version'],
 			true
 		);
+		wp_localize_script(
+			"decs-script-admin-{$this->name}", 
+			'clickToChatData', 
+			array(
+					'root_url' => get_site_url(),
+					'nonce' => wp_create_nonce('wp_rest')
+		));
 	}
 
 	function dashboard_page() { ?>
