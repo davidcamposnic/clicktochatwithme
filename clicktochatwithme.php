@@ -72,6 +72,12 @@ class ClickToChat {
 
 	function mainPageAssets() {
 		$assetsFile = require_once DCNIC_CLICKTOCHAT_DIRNAME . "/build/index.asset.php";
+		wp_enqueue_style(
+			"decs-script-admin-{$this->name}", 
+			plugin_dir_url(__FILE__) . "build/index.css", 
+			array(),
+			$assetsFile['version']
+		);
 		wp_enqueue_script(
 			"decs-script-admin-{$this->name}",
 			plugin_dir_url(__FILE__) . "build/index.js",

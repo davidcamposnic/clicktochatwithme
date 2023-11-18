@@ -1,0 +1,21 @@
+.name-form {
+  background-color: #f5f5f5;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  padding: 20px;
+  &__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    p {
+      width: 100%;
+      margin: 0 0 16px 0;
+      text-align: center;
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+}
