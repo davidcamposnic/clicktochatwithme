@@ -34,7 +34,7 @@ const NameForm = () => {
   });
 
   return (
-    <div className="name-form">
+    <div className="card">
       <div className="name-form__wrapper">
         <h2>Describe your assistant</h2>
         <p>

@@ -1,0 +1,12 @@
+.messages-list {
+  background-color: #ebebeb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  p {
+    margin: 0;
+  }
+}
