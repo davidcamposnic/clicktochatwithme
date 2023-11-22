@@ -1,10 +1,8 @@
 @import './flex.scss';
 
 #wpcontent {
-  height: calc(100vh - 42px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  // display: flex;
+  // justify-content: center;
   * {
     box-sizing: border-box;
   }
@@ -48,6 +46,14 @@ input[type=text] {
       color: #303030;
       padding: 4px 18px;
       margin-bottom: 12px;
+      &::placeholder {
+        color: #747474;
+      }
+      &:focus{
+        border-color: transparent!important;
+        box-shadow: none!important;
+        outline: none!important;
+      }
     }
   }
 }
@@ -69,16 +75,8 @@ input[type=text] {
     input[type=text] {
       &.form-element {
         &__input {
-          &::placeholder {
-            color: #747474;
-          }
           margin: 0;
           padding: 0;
-          &:focus{
-            border-color: transparent!important;
-            box-shadow: none!important;
-            outline: none!important;
-          }
         }
       }
     }

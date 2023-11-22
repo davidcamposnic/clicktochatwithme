@@ -7,15 +7,14 @@ import { Dashboard } from "../../../api";
 const dashboardCollection = new Dashboard();
 
 const NameForm = () => {
-  const { createName, getName } = dashboardCollection;
+  const { createName, getData } = dashboardCollection;
 
   const [name, setName] = useState("");
-  const [results, setResults] = useState({});
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await getName();
+        const response = await getData();
         setName(response.data.name);
       } catch (error) {
         console.error(error);

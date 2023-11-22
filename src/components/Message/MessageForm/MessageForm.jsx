@@ -1,29 +1,40 @@
 import React, { useState, useEffect } from "react";
 import MessagesList from "../MessagesList/MessagesList";
-import { Close, Open } from "../../../../assets";
+import { Open } from "../../../../assets";
 import { useFormik } from "formik";
-import { initialValues, validationSchema } from "./MessageForm.data";
+import { initialValues } from "./MessageForm.data";
+import { Dashboard } from "../../../api";
+
+const dashboard = new Dashboard();
 
 const MessageForm = () => {
+  //api functions
+  const { createMessages, getData } = dashboard;
+
+  //useStates
   const [messages, setMessages] = useState([]);
 
+  //useEffects
   useEffect(() => {
-    setMessages([
-      "Here we are going to check all our messages",
-      "My second message here",
-    ]);
+    (async () => {
+      try {
+        const response = await getData();
+        setMessages(response.data.messages);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, []);
 
-  // const formik = useFormik({
-  //   onSubmit: (e) => {
-  //     e.preventDefault();
-  //   },
-  // });
+  useEffect(() => {
+    formik.setFieldValue("messages", messages);
+  }, [messages]);
 
+  //formik
   const formik = useFormik({
     initialValues: initialValues(),
-    onSubmit: ({ messages }) => {
-      console.log(messages);
+    onSubmit: async ({ messages }) => {
+      createMessages(messages);
     },
   });
 
@@ -39,15 +50,29 @@ const MessageForm = () => {
         </div>
         <button
           className="btn btn--icon"
-          onClick={() => setMessages([...messages, "Write your new message"])}
+          onClick={() => {
+            const newMessages = [...messages];
+            newMessages.splice(0, 0, "Write your new message here");
+            setMessages(newMessages);
+          }}
         >
           <Open fill={"white"} />
         </button>
       </div>
-      {messages.map((message, index) => (
-        <MessagesList key={index} message={message} />
-      ))}
-      <form className="" onSubmit={formik.handleSubmit}>
+      <div className="messages">
+        {messages.map((message, index) => {
+          return (
+            <MessagesList
+              key={index}
+              index={index}
+              message={message}
+              messages={messages}
+              setMessages={setMessages}
+            />
+          );
+        })}
+      </div>
+      <form onSubmit={formik.handleSubmit}>
         <input name="messages" type="hidden" value={messages} />
         <input className="form-element__submit" type="submit" value="Update" />
       </form>

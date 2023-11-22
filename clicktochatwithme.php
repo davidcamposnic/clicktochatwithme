@@ -89,14 +89,14 @@ class ClickToChat {
 			"decs-script-admin-{$this->name}", 
 			'clickToChatData', 
 			array(
-					'root_url' => get_site_url(),
-					'nonce' => wp_create_nonce('wp_rest')
+				'root_url' => get_site_url(),
+				'nonce' => wp_create_nonce('wp_rest')
 		));
 	}
 
 	function dashboard_page() { ?>
 		<div id="dcnicclicktochat-update-me"></div>
-  <?php }
+  	<?php }
 
 	function options_page() { ?>
 		<h1>Options</h1>
