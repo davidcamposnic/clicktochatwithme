@@ -33,10 +33,14 @@ class DashboardRoute {
     function handle_create_messages($data) {
 
       $data = (array) $data['data'];
+
       $result = array();
 
       foreach($data as $key => $value) {
-        array_push($result, sanitize_text_field($value));
+        array_push($result, array(
+          'id' => sanitize_text_field($value['id']), 
+          'text' => sanitize_text_field($value['text'])
+        ));
       }
 
       if(current_user_can('manage_options')) { 

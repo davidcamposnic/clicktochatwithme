@@ -4,6 +4,9 @@ import { Open } from "../../../../assets";
 import { useFormik } from "formik";
 import { initialValues } from "./MessageForm.data";
 import { Dashboard } from "../../../api";
+import { DraggableMsg } from "../DraggableMsg";
+import SortableItem from "../SortableItem/SortableItem";
+import { generarId } from "../../../helpers";
 
 const dashboard = new Dashboard();
 
@@ -19,7 +22,11 @@ const MessageForm = () => {
     (async () => {
       try {
         const response = await getData();
-        setMessages(response.data.messages);
+        if (response.data.messages) {
+          setMessages(response.data.messages);
+        } else {
+          setMessages(formik.values.messages);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -52,7 +59,10 @@ const MessageForm = () => {
           className="btn btn--icon"
           onClick={() => {
             const newMessages = [...messages];
-            newMessages.splice(0, 0, "Write your new message here");
+            newMessages.splice(0, 0, {
+              id: generarId(),
+              text: "Write your new message here",
+            });
             setMessages(newMessages);
           }}
         >
@@ -60,17 +70,21 @@ const MessageForm = () => {
         </button>
       </div>
       <div className="messages">
-        {messages.map((message, index) => {
-          return (
-            <MessagesList
-              key={index}
-              index={index}
-              message={message}
-              messages={messages}
-              setMessages={setMessages}
-            />
-          );
-        })}
+        <DraggableMsg messages={messages} setMessages={setMessages}>
+          {messages.map((message, index) => {
+            const { id, text } = message;
+            return (
+              <SortableItem key={id} id={id}>
+                <MessagesList
+                  index={index}
+                  message={text}
+                  messages={messages}
+                  setMessages={setMessages}
+                />
+              </SortableItem>
+            );
+          })}
+        </DraggableMsg>
       </div>
       <form onSubmit={formik.handleSubmit}>
         <input name="messages" type="hidden" value={messages} />
